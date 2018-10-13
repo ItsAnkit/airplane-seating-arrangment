@@ -1,10 +1,12 @@
 require_relative 'aisle_arrangement.rb'
 require_relative 'window_arrangement.rb'
 require_relative 'central_arrangement.rb'
+require_relative 'compartment.rb'
 require 'json'
 require 'pry'
 
 class SeatingArrangement
+
   def initialize(structure, passengers_count)
     @structure = JSON.parse(structure)
     @passengers_count = passengers_count.to_i
@@ -15,7 +17,7 @@ class SeatingArrangement
     @aisle = AisleArrangement.new(aisle_structure)
     @central = CentralArrangement.new(central_structure)
     @window = WindowArrangement.new(window_structure)
-    fill_seats
+    message = fill_seats
     construct_arrangement
     print "\n"
     print "Seating Arrangement from left to right"
@@ -30,10 +32,16 @@ class SeatingArrangement
       display_arrangement(compartment)
       print "\n"
     end
-    puts @message if @message
+    puts message if message
   end
 
   private
+
+  def fetch_compartments
+    @compartments = []
+    @structure.each { |row| @compartments << Array.new(row[1]) { Array.new(row[0]) } }
+  end
+
   def display_arrangement(compartment)
     compartment.each do |arr|
         arr.each do |item|
@@ -60,25 +68,29 @@ class SeatingArrangement
       @aisle.set_seat_arrangement(0, aisle_seats)
       @window.set_seat_arrangement(aisle_seats, non_central_seats)
       @central.set_seat_arrangement(non_central_seats, total_seats)
-      @message = "Airline can arrange for maximum #{@passengers_count} seats." if @passengers_count > total_seats
+      "Airline can arrange for maximum #{total_seats} seats." if @passengers_count > total_seats
     end
   end
 
-  def fetch_compartments
-    @compartments = []
-    @structure.each { |row| @compartments << Array.new(row[1]) { Array.new(row[0]) } }
-  end
-
   def aisle_structure
-    [Array.new(@compartments[0].length, ' '), Array.new(@compartments[1].length, ' '), Array.new(@compartments[1].length, ' '), Array.new(@compartments[2].length, ' '), Array.new(@compartments[2].length, ' '), Array.new(@compartments[3].length, ' ')]
+    [ Array.new(@compartments[0].length, ' '),
+      Array.new(@compartments[1].length, ' '),
+      Array.new(@compartments[1].length, ' '),
+      Array.new(@compartments[2].length, ' '),
+      Array.new(@compartments[2].length, ' '),
+      Array.new(@compartments[3].length, ' ') ]
   end
 
   def central_structure
-    [Array.new(@compartments[0].length, ' '), Array.new(@compartments[1].length, ' '), Array.new(@compartments[1].length, ' '), Array.new(@compartments[3].length, ' ')]
+    [ Array.new(@compartments[0].length, ' '),
+      Array.new(@compartments[1].length, ' '),
+      Array.new(@compartments[1].length, ' '),
+      Array.new(@compartments[3].length, ' ') ]
   end
 
   def window_structure
-    [Array.new(@compartments[0].length, ' '), Array.new(@compartments[3].length, ' ')]
+    [ Array.new(@compartments[0].length, ' '),
+      Array.new(@compartments[3].length, ' ') ]
   end
 
   def construct_arrangement

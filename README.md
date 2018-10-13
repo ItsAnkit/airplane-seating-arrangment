@@ -1,11 +1,16 @@
-#AirplaneSeatingArrangement
- It helps seat audiences in a flight based on the following input and rules.
+# AirplaneSeatingArrangement
+
+• It helps seat audiences in a flight based on the following input and rules.
 Rules for seating
+
 • Always seat passengers starting from the front row to back, starting from the left to the right
+
 • Fill aisle seats first followed by window seats followed by center seats (any order in center seats)
 
 Input to the program will be
+
 • a 2D array that represents the rows and columns [ [3,4], [4,5], [2,3], [3,4] ]
+
 • Number of passengers waiting in queue.
 
 
@@ -13,7 +18,7 @@ For installing ruby, follow this doc https://www.ruby-lang.org/en/documentation/
 
 and after successful installation run code as:
 
-    ruby airplane_seating_arrangement.rb
+    ruby lib/airplane_seating_arrangement.rb
 
 After this, you will be asked following questions:
 

@@ -1,7 +1,8 @@
-require_relative 'filling_seats'
+require_relative 'seats_filler'
 
-class AisleArrangement
-  include FillingSeats
+class CentralArrangement
+  include SeatsFiller
+
   def initialize(seats)
     @seats = seats
   end

@@ -1,11 +1,16 @@
 require 'rspec'
-require_relative '../central_arrangement'
+require_relative '../lib/central_arrangement'
 
 describe CentralArrangement, type: :class do
 
   context 'when provided with queue size and arrangement pattern' do
     before(:each) do
-      @seats_arrangement = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]]
+      @seats_arrangement = [[["", "", ""], ["", "", ""]],
+                            [["", "", "", ""], ["", "", "", ""],
+                            ["", "", "", ""]],
+                            [["", ""], ["", ""], ["", ""]],
+                            [["", "", ""], ["", "", ""],
+                            ["", "", ""], ["", "", ""]]]
     end
 
     it 'central seats are not alloted when there are no passengers' do

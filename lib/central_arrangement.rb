@@ -3,8 +3,9 @@ require_relative 'seats_filler'
 class CentralArrangement
   include SeatsFiller
 
-  def initialize(seats)
-    @seats = seats
+  def initialize(compartment_structure)
+    @compartment_structure = compartment_structure
+    @seats = seat_structure
   end
 
   def set_seat_arrangement(seats_filled, passengers_count)
@@ -13,5 +14,12 @@ class CentralArrangement
 
   def get_seat_arrangement
     @seats
+  end
+
+  def seat_structure
+    [ Array.new(@compartment_structure[0].length, ' '),
+      Array.new(@compartment_structure[1].length, ' '),
+      Array.new(@compartment_structure[1].length, ' '),
+      Array.new(@compartment_structure[3].length, ' ') ]
   end
 end

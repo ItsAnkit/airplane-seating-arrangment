@@ -1,11 +1,16 @@
 require 'rspec'
-require_relative '../aisle_arrangement'
+require_relative '../lib/aisle_arrangement'
 
 describe AisleArrangement, type: :class do
 
   context 'when provided with queue size and arrangement pattern' do
     before(:each) do
-      @seats_arrangement = [["", "", "", "", ""], ["", "", "", "", ""], ["", "", "", "", ""]]
+      @seats_arrangement = [[["", "", ""], ["", "", ""]],
+                            [["", "", "", ""], ["", "", "", ""],
+                            ["", "", "", ""]],
+                            [["", ""], ["", ""], ["", ""]],
+                            [["", "", ""], ["", "", ""],
+                            ["", "", ""], ["", "", ""]]]
     end
 
     it 'aisle seats are not alloted when there are no passengers' do

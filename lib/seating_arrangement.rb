@@ -13,20 +13,11 @@ class SeatingArrangement
   end
 
   def print_arrangement
-    @compartments = Compartments.new(@structure)
-    @compartment_structure = @compartments.get_structure
-    @aisle = AisleArrangement.new(@compartment_structure)
-    @central = CentralArrangement.new(@compartment_structure)
-    @window = WindowArrangement.new(@compartment_structure)
+    set_data
     message = fill_seats
     construct_arrangement
-    print "\n"
-    print "Seating Arrangement from left to right"
-    print "\n"
-    headings = [['Window  Central  Aisle'],
-                ['Aisle  Central  Central  Aisle'],
-                ['Aisle  Aisle'],
-                ['Aisle Central  Window']]
+    print "\n Seating Arrangement from left to right \n"
+    headings = arrangements
     @compartment_arrangement = @compartments.get_seat_arrangement
     @compartment_arrangement.zip(headings).each do |compartment, heading|
       print heading[0]
@@ -38,6 +29,21 @@ class SeatingArrangement
   end
 
   private
+
+  def set_data
+    @compartments = Compartments.new(@structure)
+    @compartment_structure = @compartments.get_structure
+    @aisle = AisleArrangement.new(@compartment_structure)
+    @central = CentralArrangement.new(@compartment_structure)
+    @window = WindowArrangement.new(@compartment_structure)
+  end
+
+  def arrangements
+    [['Window  Central  Aisle'],
+     ['Aisle  Central  Central  Aisle'],
+     ['Aisle  Aisle'],
+     ['Aisle Central  Window']]
+  end
 
   def display_arrangement(compartment)
     compartment.each do |row|
